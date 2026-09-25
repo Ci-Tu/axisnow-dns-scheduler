@@ -1,0 +1,188 @@
+/* 设计令牌：与 useTheme.ts 中的 Naive UI 覆盖值保持一致 */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #fafbfc;
+  --border: #e4e6eb;
+  --border-soft: #eef0f3;
+  --text: #1f2328;
+  --text-2: #4b5563;
+  --text-3: #8a919c;
+  --accent: #2f54eb;
+  --accent-soft: rgba(47, 84, 235, 0.08);
+  --ok: #16a34a;
+  --warn: #d97706;
+  --err: #dc2626;
+  --idle: #c4c9d2;
+  --radius: 8px;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --sidebar-w: 216px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --surface: #16181d;
+  --surface-2: #1a1d23;
+  --border: #2a2e36;
+  --border-soft: #23262d;
+  --text: #e6e8eb;
+  --text-2: #b4bac4;
+  --text-3: #7c8491;
+  --accent: #6b8cff;
+  --accent-soft: rgba(107, 140, 255, 0.12);
+  --ok: #3fb27f;
+  --warn: #e0a33b;
+  --err: #f06b6b;
+  --idle: #3a3f48;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code,
+.mono {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+}
+
+/* ---------- 布局辅助 ---------- */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.muted {
+  color: var(--text-3);
+}
+
+.sub {
+  color: var(--text-2);
+}
+
+.small {
+  font-size: 12.5px;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 说明性段落：限制行宽，保证可读 */
+.prose {
+  max-width: 72ch;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.prose + .prose {
+  margin-top: 8px;
+}
+
+ol.steps {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-2);
+}
+
+ol.steps li + li {
+  margin-top: 10px;
+}
+
+pre.code {
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow: auto;
+  max-height: 360px;
+}
+
+/* 细分割的键值对列表 */
+dl.kv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 20px;
+  margin: 0;
+}
+
+dl.kv dt {
+  color: var(--text-3);
+}
+
+dl.kv dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

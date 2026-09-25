@@ -1,0 +1,27 @@
+name: axisnow-probe-responder
+
+services:
+  probe-responder:
+    image: nginx:1.27-alpine
+    container_name: axisnow-probe-responder
+    restart: unless-stopped
+    ports:
+      # 宿主机 4895 -> 容器 80
+      # 用一个专用端口，不碰现有的 80 / 443，避免影响正在跑的业务站点。
+      # 要改端口只改左边这个数字，同时记得把 AxisNow 统一模板里的 port 改成一样的。
+      - "4895:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    # 极简只读运行：不写日志、不挂额外目录
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1/aegis_node_ping/ || exit 1"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 5s

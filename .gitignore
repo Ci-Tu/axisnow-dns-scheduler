@@ -1,0 +1,30 @@
+# ---- 运行数据与凭据：绝不提交 ----
+data/
+.env
+*.bak
+*.bak-*
+*.tgz
+backups/
+ref/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+backend/.devdata/
+
+# ---- 前端 ----
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# ---- 杂项 ----
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

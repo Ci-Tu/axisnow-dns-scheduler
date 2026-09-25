@@ -1,0 +1,41 @@
+[project]
+name = "axisnow-dns-scheduler"
+version = "2.0.0"
+description = "A self-hosted console and pluggable scheduler for AxisNow DNS routing"
+readme = "../README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "Flask>=3.0,<4",
+    "requests>=2.32,<3",
+    "gunicorn>=22,<24",
+    "maxminddb>=2.6,<3",
+    "tzdata>=2024.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["axisnow_scheduler*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "BLE", "A"]
+ignore = [
+    "UP006", "UP007", "UP035", "UP045",  # 保持 typing.Dict / Optional 写法，兼容 3.10 的阅读习惯
+    "SIM108",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["axisnow_scheduler"]

@@ -1,0 +1,25 @@
+name: axisnow-dns-scheduler
+
+services:
+  axisnow-dns-scheduler:
+    build: .
+    image: axisnow-dns-scheduler:latest
+    container_name: axisnow-dns-scheduler
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4894}:4894"
+    volumes:
+      # 必须持久化：配置、会话密钥、运行历史、GeoIP 数据都在这里
+      - ./data:/app/data
+    environment:
+      # 变量值来自同目录的 .env（可选），参见 .env.example
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Shanghai}
+      TZ: ${APP_TIMEZONE:-Asia/Shanghai}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      AXISNOW_API_TOKEN: ${AXISNOW_API_TOKEN:-}
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN:-}
+      GEOIP_AUTO_DOWNLOAD: ${GEOIP_AUTO_DOWNLOAD:-1}
+    security_opt:
+      - no-new-privileges:true
