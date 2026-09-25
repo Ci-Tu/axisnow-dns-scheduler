@@ -66,3 +66,9 @@ def test_missing_rule_is_reported(fake):
     manage()
     fake.rules.clear()
     assert "规则已不存在" in scheduler.tick(client=fake)["errors"][0]
+
+
+def test_skipped_round_still_records_last_tick(fake):
+    result = scheduler.tick(client=fake)
+    assert result["skipped"] == "没有启用中的规则"
+    assert scheduler.state_snapshot()["last_tick"] == result["at"]

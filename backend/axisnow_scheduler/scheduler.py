@@ -136,16 +136,16 @@ def tick(client: Optional[AxisNowClient] = None, at: Optional[datetime] = None) 
 
     if not (cfg.get("scheduler") or {}).get("enabled", True):
         summary["skipped"] = "调度已关闭"
-        return summary
+        return _finish(summary)
     active = {k: v for k, v in (cfg.get("rules") or {}).items() if v.get("enabled", True)}
     if not active:
         summary["skipped"] = "没有启用中的规则"
-        return summary
+        return _finish(summary)
 
     client = client or client_for(cfg)
     if client is None:
         summary["errors"].append("尚未配置 AxisNow API Token")
-        return summary
+        return _finish(summary)
 
     try:
         remote_rules = {r.get("uuid"): r for r in client.list_rules()}
