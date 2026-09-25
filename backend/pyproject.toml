@@ -2,7 +2,6 @@
 name = "axisnow-dns-scheduler"
 version = "2.0.0"
 description = "A self-hosted console and pluggable scheduler for AxisNow DNS routing"
-readme = "../README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
