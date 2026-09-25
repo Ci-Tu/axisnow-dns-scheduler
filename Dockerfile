@@ -33,7 +33,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/axisnow_scheduler ./axisnow_scheduler
 COPY --from=web /web/dist ./web
 COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod 0755 /entrypoint.sh && mkdir -p /app/data
+# 构建上下文里的文件权限取决于宿主机 umask（可能是 600）；统一成只读可执行，否则降权后读不到代码
+RUN chmod 0755 /entrypoint.sh && chmod -R a+rX,go-w /app && mkdir -p /app/data
 
 EXPOSE 4894
 
